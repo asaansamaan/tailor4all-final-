@@ -1,0 +1,122 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Signup Here</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <input type="text" hidden="true" [formControl]="selectControl">
+
+  <div *ngIf="selectControl.value === ''">
+    <button class="outline-btn" (click)="selectControl.setValue('customer')" ion-button outline full>Sign Up as Customer</button>
+    <button class="outline-btn" (click)="selectControl.setValue('provider')" ion-button outline full>Sign Up as Provider</button>
+  </div>
+
+  <ion-list>
+    <form [formGroup]="customerFG" *ngIf="selectControl.value !== ''">
+      <ng-container *ngIf="selectControl.value === 'provider'">
+        <ion-item>
+          <ion-label floating>Company Name</ion-label>
+          <ion-input type="text" formControlName="companyName"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="customerFG.get('companyName').touched && customerFG.get('companyName').hasError('required')">
+          Company Name is Required!
+        </ion-item>
+      </ng-container>
+
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input type="text" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('firstName').touched && customerFG.get('firstName').hasError('required')">
+        First Name is Required!
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('lastName').touched && customerFG.get('lastName').hasError('required')">
+        Last Name is Required!
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text" formControlName="userName"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('userName').touched && customerFG.get('userName').hasError('required')">
+        User Name is Required!
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('email').touched && customerFG.get('email').hasError('required')">
+        Email is Required!
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('email').touched && customerFG.get('email').hasError('email')">
+        Email is not Valid!
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('password').touched && customerFG.get('password').hasError('required')">
+        Password is Required!
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('password').touched && customerFG.get('password').hasError('minlength')">
+        Password must be atleast six charecters!
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Confirm Password</ion-label>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('confirmPassword').touched && customerFG.get('confirmPassword').hasError('required')">
+        Confirm Password is Required!
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('confirmPassword').touched && customerFG.get('confirmPassword').value !== customerFG.get('password').value">
+        Passwords doesnot Match
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Mobile</ion-label>
+        <ion-input type="text" formControlName="number"></ion-input>
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('number').touched && customerFG.get('number').hasError('required')">
+        Number is Required!
+      </ion-item>
+      <ion-item class="error" *ngIf="customerFG.get('number').touched && customerFG.get('number').hasError('pattern')">
+        Phone Number Not Valid!
+      </ion-item>
+
+      <ng-container *ngIf="selectControl.value === 'provider'">
+          <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-input type="text" formControlName="address"></ion-input>
+          </ion-item>
+          <ion-item class="error" *ngIf="customerFG.get('address').touched && customerFG.get('address').hasError('required')">
+            Address is Required!
+          </ion-item>
+        </ng-container>
+
+      <button class="outline-btn" (click)="registerUser()" [disabled]="!customerFG.valid" ion-button outline full>Register</button>
+    </form>
+    <div class="layout-row space-between">
+      <a *ngIf="selectControl.value !== 'customer' && selectControl.value !== ''" (click)="selectControl.setValue('customer')">Sign up as Customer</a>
+      <a (click)="selectControl.setValue('provider')" *ngIf="selectControl.value !== 'provider' && selectControl.value !== ''">Sign up as a Provider</a>
+      <a (click)="login()">already have account?</a>
+    </div>
+  </ion-list>
+</ion-content>

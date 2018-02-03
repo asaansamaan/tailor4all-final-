@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+      <button  ion-button icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <img src="assets/imgs/cover1.jpg" class="login-image" alt="">
+  <ion-item>
+    <ion-label floating>Email Address</ion-label>
+    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password" full outline [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+
+  <button ion-button outline full class="outline-btn" (click)="login(user)">Login</button>
+  <h2 class="text-center">OR</h2>
+  <button ion-button outline full class="outline-btn" color="secondary" (click)="register()">Register</button>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>
+        Tailor For All
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="newItem.title" placeholder="New Shopping item"></ion-input>
+  
+        <ion-input type="text" [(ngModel)]="newItem.description" placeholder="New Shopping item"></ion-input>
+      </ion-item>
+      <button ion-button (click)="addItem()">Add!</button>
+    </ion-list>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of items | async">
+        <ion-item>
+          {{ item.title }}
+        </ion-item>
+        <ion-item>
+          {{ item.description }}
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" icon-only (click)="deleteItem(item)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <button ion-button color="danger" full (click)="goToLogin()">
+      <ion-icon name="navigate"></ion-icon>
+    </button>
+  </ion-content>
+  

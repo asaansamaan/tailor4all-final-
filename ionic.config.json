@@ -1,0 +1,8 @@
+{
+  "name": "tailor4all",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
