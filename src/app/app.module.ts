@@ -15,6 +15,9 @@ import { HomePageModule } from '../pages/home/home.module';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LoginPageModule } from '../pages/login/login.module';
+import { ProfilePageModule } from '../pages/profile/profile.module';
+import { ItemListPageModule } from '../pages/item-list/item-list.module';
+import { AuthService } from '../providers/users/userAuth';
  
  
 @NgModule({
@@ -26,6 +29,8 @@ import { LoginPageModule } from '../pages/login/login.module';
     HttpModule,
     HomePageModule,
     LoginPageModule,
+    ProfilePageModule,
+    ItemListPageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -40,6 +45,7 @@ import { LoginPageModule } from '../pages/login/login.module';
     StatusBar,
     SplashScreen,
     FirebaseProvider,
+    AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

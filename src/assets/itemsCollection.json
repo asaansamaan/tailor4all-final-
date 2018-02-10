@@ -1,0 +1,51 @@
+{
+    "men": [
+        {
+            "_id": "123abc",
+            "name": "Kurta 2017",
+            "description": "New Designs that trends the current fashion",
+            "images": [
+                "assets/imgs/male/Formal Kurta -1.jpg"
+            ],
+            "price": 1200,
+            "tailor": {
+                "name": "Ilyaas Khan",
+                "address": "A-20 Omega City Shopping Center",
+                "deliveryTime": 3,
+                "rating": 4.2
+            }
+        },
+        {
+            "_id": "123abc",
+            "name": "Kurta 2017",
+            "description": "New Designs that trends the current fashion",
+            "images": [
+                "assets/imgs/male/male-kurta1-front.jpg",
+                "assets/imgs/male/male-kurta1-closeUp.jpg"
+            ],
+            "price": 1600,
+            "tailor": {
+                "name": "Raza Basheer",
+                "address": "Shop#420 Magna Shopping Center",
+                "deliveryTime": 5,
+                "rating": 5
+            }
+        },
+        {
+            "_id": "123abc",
+            "name": "Kurta 2017",
+            "description": "New Designs that trends the current fashion",
+            "images": [
+                "assets/imgs/male/male-kurta2-front.jpg",
+                "assets/imgs/male/male-kurta2-back.jpg"
+            ],
+            "price": 1000,
+            "tailor": {
+                "name": "Basheer Master",
+                "address": "Al Hamara Shopping Center",
+                "deliveryTime": 6,
+                "rating": 4.6
+            }
+        }
+    ]
+}

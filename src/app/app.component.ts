@@ -6,6 +6,11 @@ import { MenuController } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
+import { ItemListPage } from '../pages/item-list/item-list';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../providers/users/userAuth';
+ 
 @Component({
   templateUrl: 'app.html'
 })
@@ -17,31 +22,36 @@ export class MyApp {
   loginPage:any = 'LoginPage';
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    public menuCtrl: MenuController) {
-      if(!!localStorage.getItem('firebase:host:tailorforall-2214.firebsaeio.com')) {
-        this.pages = [
-          { title: 'Home', component: HomePage },
-          { title: 'Provider', component: HomePage },
-          { title: 'Shopping Cart', component: HomePage },
-          { title: 'Login', component: LoginPage },
-          { title: 'About Us', component: LoginPage },
-          { title: 'Contact Us', component: HomePage },        
-        ];
-      }else {
-        this.pages = [
-          { title: 'Home', component: HomePage },
-          { title: 'Provider', component: HomePage },
-          { title: 'Shopping Cart', component: HomePage },
-          { title: 'Login', component: LoginPage },
-          { title: 'About Us', component: HomePage },
-          { title: 'Contact Us', component: HomePage },        
-        ];
-      }
+    public menuCtrl: MenuController,
+    private authService: AuthService) {
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      // this.checkUserStatus().subscribe(user => {
+      //   console.log('this is user data', user);
+      //   if (!!user) {
+      //     this.pages = [
+      //       { title: 'Home', component: HomePage },
+      //       { title: 'Provider', component: HomePage },
+      //       { title: 'Gallery', component: ItemListPage },
+      //       { title: 'Profile', component: ProfilePage },
+      //       { title: 'About Us', component: HomePage },
+      //       { title: 'Contact Us', component: HomePage },        
+      //     ];
+      //   } else {
+      //     this.pages = [
+      //       { title: 'Home', component: HomePage },
+      //       { title: 'Provider', component: HomePage },
+      //       { title: 'Gallery', component: ItemListPage },
+      //       { title: 'Login', component: LoginPage },
+      //       { title: 'About Us', component: LoginPage },
+      //       { title: 'Contact Us', component: HomePage },        
+      //     ];
+      //   }  
+      // });
     });
   }
   openPage(page) {
@@ -59,6 +69,9 @@ export class MyApp {
  
   toggleMenu() {
     this.menuCtrl.toggle();
+  }
+  checkUserStatus(): Observable<any> {
+    return this.authService.user;
   }
 }
 

@@ -5,7 +5,7 @@
         </ion-toolbar>
       
         <ion-content>
-          <ion-list>
+          <ion-list class="menu-list">
             <ion-item menuClose detail-none>Close Menu</ion-item>
             <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
               {{p.title}}

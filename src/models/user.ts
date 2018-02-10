@@ -1,13 +1,26 @@
 export interface User {
-    uid: string;
-    email: string;
+    uid?: string;
+    email?: string;
+    photoURL?: string;
+    displayName?: string;
+    favoriteColor?: string;
     firstName?: string;
     lastName?: string;
+    dob?: Date;
+    gender?: string;
     userName?: string;
     address?: string;
     companyName?: string;
     phoneNumber?: string;
-    roles: {
+    measurements?: {
+        shoulders?: number;
+        chest?: number;
+        collarSize?: number;
+        sleevesSize?: number;
+        shirtSize?: string;
+
+    }
+    roles?: {
         provider?: boolean;
         customer?: boolean;
     }
