@@ -17,7 +17,7 @@
 
 
 <ion-content padding>
-  <ion-card *ngFor="let item of items">
+  <ion-card *ngFor="let item of items | async">
     <img src="{{item?.images[0]}}" />
     <ion-card-content>
       <ion-card-title>

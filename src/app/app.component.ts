@@ -18,8 +18,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: { title: string; component: any; }[];
-  rootPage:any = HomePage;
-  loginPage:any = 'LoginPage';
+  rootPage:any = ItemListPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     public menuCtrl: MenuController,
@@ -30,28 +29,23 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      // this.checkUserStatus().subscribe(user => {
-      //   console.log('this is user data', user);
-      //   if (!!user) {
-      //     this.pages = [
-      //       { title: 'Home', component: HomePage },
-      //       { title: 'Provider', component: HomePage },
-      //       { title: 'Gallery', component: ItemListPage },
-      //       { title: 'Profile', component: ProfilePage },
-      //       { title: 'About Us', component: HomePage },
-      //       { title: 'Contact Us', component: HomePage },        
-      //     ];
-      //   } else {
-      //     this.pages = [
-      //       { title: 'Home', component: HomePage },
-      //       { title: 'Provider', component: HomePage },
-      //       { title: 'Gallery', component: ItemListPage },
-      //       { title: 'Login', component: LoginPage },
-      //       { title: 'About Us', component: LoginPage },
-      //       { title: 'Contact Us', component: HomePage },        
-      //     ];
-      //   }  
-      // });
+      this.checkUserStatus().subscribe(user => {
+        if (!!user) {
+          this.pages = [
+            { title: 'Home', component: ItemListPage },
+            { title: 'Profile', component: ProfilePage },
+            { title: 'About Us', component: HomePage },
+            { title: 'Contact Us', component: HomePage },        
+          ];
+        } else {
+          this.pages = [
+            { title: 'Home', component: ItemListPage },
+            { title: 'Login', component: LoginPage },
+            { title: 'About Us', component: LoginPage },
+            { title: 'Contact Us', component: HomePage },        
+          ];
+        }  
+      });
     });
   }
   openPage(page) {
@@ -62,7 +56,9 @@ export class MyApp {
   openMenu() {
     this.menuCtrl.open();
   }
- 
+  logout() {
+    this.authService.signOut();
+  }
   closeMenu() {
     this.menuCtrl.close();
   }

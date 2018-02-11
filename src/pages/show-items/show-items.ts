@@ -4,6 +4,8 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { ItemService } from '../../providers/items/itemService';
+import { Item } from '../../models/item';
 /**
  * Generated class for the ShowItemsPage page.
  *
@@ -17,26 +19,29 @@ import 'rxjs/add/operator/catch';
   templateUrl: 'show-items.html',
 })
 export class ShowItemsPage {
+  items: Observable<Item[]>;
+  femaleItems: any = [];
   category: string;
-  items: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: Http) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+     private http: Http,
+     private itemService: ItemService, 
+    ) {
   }
   
   ionViewDidLoad() {
     const category = this.navParams.get('category');
     this.category = category;
     if(category === 'men') {
-      this.getJSON().subscribe(data => {
-        this.items = data.men
-        console.log(data);
-    });
+      this.items = this.itemService.categorizedItem('male', 10, 'name')
+
     }
     if(category === 'women') {
-      this.getJSON().subscribe(data => this.items = data.women);
+     this.items = this.itemService.categorizedItem('female', 10, 'name')
     }
   }
-  public getJSON(): Observable<any> {
+  private getJSON(): Observable<any> {
     return this.http.get("assets/itemsCollection.json")
                     .map((res:any) => res.json())
   }

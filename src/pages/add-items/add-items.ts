@@ -20,10 +20,7 @@ export class AddItemsPage {
   public items: Observable<Item[]>;
   public itemsCollection: AngularFirestoreCollection<Item>;
   public itemDoc: AngularFirestoreDocument<Item>;
-  public newItem: Item = {
-    title: '',
-    description: '',
-  };
+  public newItem: Item;
   constructor(public navCtrl: NavController, public navParams: NavParams, private afs: AngularFirestore) {
     this.itemsCollection = this.afs.collection('items', ref => ref.orderBy('title', 'asc'));
     this.items = this.itemsCollection.snapshotChanges().map(changes => {

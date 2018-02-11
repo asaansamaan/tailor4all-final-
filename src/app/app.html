@@ -10,6 +10,7 @@
             <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
               {{p.title}}
             </ion-item>
+            <ion-item (click)="logout()" *ngIf="authService.user | async">Logout</ion-item>
           </ion-list>
         </ion-content>
       
