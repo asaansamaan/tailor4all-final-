@@ -1,19 +1,20 @@
-<ion-menu [content]="content">
+<ion-split-pane when="md">
+  <ion-menu [content]="content">
 
-        <ion-toolbar color="dark">
-          <ion-title>Menu</ion-title>
-        </ion-toolbar>
-      
-        <ion-content>
-          <ion-list class="menu-list">
-            <ion-item menuClose detail-none>Close Menu</ion-item>
-            <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
-              {{p.title}}
-            </ion-item>
-            <ion-item (click)="logout()" *ngIf="authService.user | async">Logout</ion-item>
-          </ion-list>
-        </ion-content>
-      
-      </ion-menu>
-      
-      <ion-nav id="nav" [root]="rootPage" #content></ion-nav>
+
+  <ion-toolbar color="dark">
+    <ion-title>Menu</ion-title>
+  </ion-toolbar>
+
+  <ion-content>
+    <ion-list class="menu-list">
+      <ion-item menuClose detail-none>Close Menu</ion-item>
+      <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </ion-item>
+      <ion-item (click)="logout()" *ngIf="authService.user | async">Logout</ion-item>
+    </ion-list>
+  </ion-content>
+  </ion-menu>
+  <ion-nav main [root]="rootPage" #content></ion-nav>
+</ion-split-pane>

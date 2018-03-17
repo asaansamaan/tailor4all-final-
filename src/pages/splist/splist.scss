@@ -1,0 +1,55 @@
+page-splist {
+  .scroll-content {
+    @media screen and (min-width: 600px) {
+      margin-top: 56px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+  .tailor-card {
+    @media screen and(min-width: 600px) {
+      max-width: 30rem;
+    }
+    .tailor-gallery {
+      max-width: 100%;
+      height: 20rem;
+      .slide {
+        width: 100% !important;
+        position: relative;
+        background: black !important;
+        h2 {
+          font-size: 2rem;
+          position: absolute;
+          bottom: 0%;
+          left: 0%;
+          transform: translate(0%, 5%);
+          background: rgba(0, 0, 0, 0.512);
+          width: 100%;
+          color: white;
+          padding: 1rem;
+        }
+        img {
+          max-width: 20rem !important;
+          height: auto;
+          max-height: 100%;
+          margin: auto !important;
+        }
+      }
+    }
+    .about {
+      max-height: 12rem;
+      overflow: hidden;
+    }
+    .align-center {
+      justify-content: center;
+      .button-outline-md,
+      .button-outline-ios {
+        color: #4b4a43;
+      }
+      .address-btn {
+        width: 100%;
+      }
+    }
+  }
+}

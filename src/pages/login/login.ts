@@ -13,7 +13,7 @@ export class LoginPage {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth,
+  constructor(
     public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Item } from '../../models/item';
-import { QuerySnapshot } from '@firebase/firestore-types';
 
 @Injectable()
 export class ItemService {
@@ -20,12 +19,12 @@ export class ItemService {
       });
     });
   }
-  public categorizedItem(forCategory,limit, orderBy) {
-    const femaleCollection = this.afs.collection('items', ref => 
+  public categorizedItems(forCategory,limit, orderBy) {
+    const collection = this.afs.collection('items', ref => 
     ref.where('for', '==', forCategory)
     .limit(limit)
     .orderBy(orderBy, 'asc'));
-    return femaleCollection.snapshotChanges().map(changes => {
+    return collection.snapshotChanges().map(changes => {
       return changes.map(a=>{
         return a.payload.doc.data() as Item;
       })
@@ -34,7 +33,17 @@ export class ItemService {
   getItems() {
     return this.items;
   }
-
+  getItem(category, code) {
+   const collection = this.afs.collection('items', ref => 
+    ref.where('for', '==', category )
+    .where('code', '==', code)
+    .limit(1));
+    return collection.snapshotChanges().map(changes => {
+      return changes.map(a=>{
+        return a.payload.doc.data() as Item;
+      })
+    })
+  }
   addItem(item: Item) {
     this.itemsCollection.add(item)
     .then((value) => {

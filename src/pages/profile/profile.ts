@@ -20,7 +20,10 @@ import { LoadingController } from 'ionic-angular/components/loading/loading-cont
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  userImageUrl: string;
+  user: User;
+  hideCamera: boolean;
+  userImageUrl: any;
+  userId: string;
   userFG: FormGroup;
   captureDataUrl: string;
 
@@ -34,7 +37,9 @@ export class ProfilePage {
     this.authService.user
     .subscribe(user => {
       console.log(user);
+      this.user = user;
       this.userFG = this.createUserFG(user);
+      this.userId = user.uid;
     })
   }
 
@@ -43,6 +48,7 @@ export class ProfilePage {
   }
   
 capture() {
+  this.hideCamera = true;
     const cameraOptions: CameraOptions = {
       quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -54,23 +60,31 @@ capture() {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
+      this.hideCamera = false;
     }, (err) => {
       // Handle error
     });
   }
   upload() {
+    const env = this;
+    const loading = env.loadingCtrl.create({
+      content: 'Uploading Profile Picture :)',
+      enableBackdropDismiss: false,
+    });
+    loading.present(); 
     let storageRef = firebase.storage().ref();
     // Create a timestamp as filename
-    const filename = Math.floor(Date.now() / 1000);
+    const filename = this.userId;
 
     // Create a reference to 'images/todays-date.jpg'
-    const imageRef = storageRef.child(`images/${filename}.jpg`);
+    const imageRef = storageRef.child(`images/usersDp/${filename}.jpg`);
     imageRef.putString(this.captureDataUrl, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
       // Do something here when the data is succesfully uploaded!
       this.userImageUrl = snapshot.downloadURL;
-      this.camera.cleanup();
+      loading.dismissAll();
      }).catch(err=> {
        console.log(err);
+       loading.dismissAll();
        this.camera.cleanup();
     });
   }
@@ -81,12 +95,14 @@ capture() {
       enableBackdropDismiss: false,
     });
     loading.present(); 
+    let userObj = this.userFG.value;
+    userObj = this.transformUser(userObj);
     if(this.captureDataUrl) {
-       Object.assign(this.userFG.value, {
+      userObj =Object.assign(userObj, {
          photoURL: this.userImageUrl
        });
-     }
-     this.authService.updateUserData(this.userFG.value).then(updatedUser => {
+      }
+     this.authService.updateUserData(userObj).then(updatedUser => {
       loading.dismissAll();
       console.log(updatedUser);
      })
@@ -105,8 +121,25 @@ capture() {
       shoulders: new FormControl(user && user.measurements && user && user.measurements.shoulders || '', [Validators.required]),
       chest: new FormControl(user && user.measurements && user && user.measurements.chest || '', [Validators.required]),
       collarSize: new FormControl(user && user.measurements && user && user.measurements.collarSize || '', [Validators.required]),
-      sleeves: new FormControl(user && user.measurements && user && user.measurements.sleevesSize || '', [Validators.required]),
+      sleevesSize: new FormControl(user && user.measurements && user && user.measurements.sleevesSize || '', [Validators.required]),
       shirtSize: new FormControl(user && user.measurements && user && user.measurements.shirtSize || ''),
     });
+   }
+   private transformUser(user) {
+    user = Object.assign(user, {
+      measurements: {
+        shoulders: user.shoulders,
+        chest: user.chest,
+        collarSize: user.collarSize,
+        sleevesSize: user.sleevesSize,
+        shirtSize: user.shirtSize,
+      }
+    });
+    delete user.shoulders;
+    delete user.chest;
+    delete user.collarSize;
+    delete user.sleevesSize;
+    delete user.shirtSize;
+    return user;
    }
 }

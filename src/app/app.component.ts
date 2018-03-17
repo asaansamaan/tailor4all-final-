@@ -10,6 +10,10 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ItemListPage } from '../pages/item-list/item-list';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../providers/users/userAuth';
+import { AboutPage } from '../pages/about/about';
+import { ContactUsPage } from '../pages/contact-us/contact-us';
+import { SplistPage } from '../pages/splist/splist';
+import { CartPage } from '../pages/cart/cart';
  
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +27,6 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     public menuCtrl: MenuController,
     private authService: AuthService) {
-
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -34,15 +37,18 @@ export class MyApp {
           this.pages = [
             { title: 'Home', component: ItemListPage },
             { title: 'Profile', component: ProfilePage },
-            { title: 'About Us', component: HomePage },
-            { title: 'Contact Us', component: HomePage },        
+            { title: 'Cart', component: CartPage },        
+            { title: 'Our Tailors', component: SplistPage },        
+            { title: 'About Us', component: AboutPage },
+            { title: 'Contact Us', component: ContactUsPage },        
           ];
         } else {
           this.pages = [
             { title: 'Home', component: ItemListPage },
             { title: 'Login', component: LoginPage },
-            { title: 'About Us', component: LoginPage },
-            { title: 'Contact Us', component: HomePage },        
+            { title: 'Our Tailors', component: SplistPage },        
+            { title: 'About Us', component: AboutPage },
+            { title: 'Contact Us', component: ContactUsPage },        
           ];
         }  
       });

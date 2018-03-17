@@ -97,6 +97,7 @@ export class RegisterPage {
         customer: true?this.selectControl.value === 'customer':false,
         provider: true?this.selectControl.value === 'provider':false,
       },
+      memberSince: new Date(),
     };
     return userRef.set(data, { merge: true }).then(()=>{
       this.navCtrl.setRoot('ItemListPage');

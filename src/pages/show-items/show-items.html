@@ -17,13 +17,27 @@
 
 
 <ion-content padding>
-  <ion-card *ngFor="let item of items | async">
-    <img src="{{item?.images[0]}}" />
+  <ion-card class="item-card" *ngFor="let item of items | async; let i = index">
+    <div class="item-pic">
+      <img src="{{item?.images[0]}}" />
+      <ion-fab right top>
+        <button ion-fab (click)="addToCart(item, i)" *ngIf="!removed[i]">
+          <ion-icon name="cart"></ion-icon>
+        </button>
+        <button ion-fab (click)="removeFromCart(item, i)" *ngIf="removed[i]">
+          <ion-icon name="removefire"></ion-icon>
+        </button>
+      </ion-fab>
+      <div class="price">{{item?.price}} /=</div>
+    </div>
     <ion-card-content>
       <ion-card-title>
         {{item?.name}}
       </ion-card-title>
-      <p>{{item?.description}}</p>
-    </ion-card-content>
+      <div class="description">
+        <p>{{item?.description}}</p>
+        <button ion-button outline (click)="goToPaymentPage(item)">BuyNow</button>
+      </div>
+        </ion-card-content>
   </ion-card>
 </ion-content>

@@ -1,0 +1,49 @@
+page-cart {
+  .item-card {
+    display: flex;
+    position: relative;
+    .item-pic {
+      width: 13rem;
+    }
+    .fab {
+        max-width: 3rem;
+        max-height: 3rem;
+    }
+    .item-info-container {
+        width: 100%;
+      .item-info {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+        max-width: 20rem;
+        .name {
+          font-weight: 600;
+        }
+      }
+      .price {
+          font-size: 2rem;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+        }
+    }
+  }
+  .no-item-container {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    ion-icon {
+      font-size: 20rem;
+      width: 20rem;
+      height: 20rem;
+    }
+    .title {
+      font-size: 3rem;
+    }
+    .message {
+      font-size: 2rem;
+      font-weight: 100;
+    }
+  }
+}

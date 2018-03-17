@@ -19,7 +19,8 @@ export interface User {
         sleevesSize?: number;
         shirtSize?: string;
 
-    }
+    };
+    memberSince?: Date;
     roles?: {
         provider?: boolean;
         customer?: boolean;

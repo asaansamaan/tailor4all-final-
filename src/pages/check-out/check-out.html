@@ -1,0 +1,66 @@
+<!--
+  Generated template for the CheckOutPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Check Out</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list [formGroup]="userFG">
+
+    <ion-item>
+      <ion-label stacked>First Name*</ion-label>
+      <ion-input type="text" formControlName="firstName"></ion-input>
+      <div class="error" *ngIf="userFG.get('firstName').hasError('required')">
+        First Name is Required!
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Last Name*</ion-label>
+      <ion-input type="text" formControlName="lastName"></ion-input>
+      <div class="error" *ngIf="userFG.get('lastName').hasError('required')">
+        Last Name is Required!
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Mobile Number*</ion-label>
+      <ion-input type="text" formControlName="number"></ion-input>
+      <div class="error" *ngIf="userFG.get('number').hasError('required')">
+        Mobile Number is Required!
+      </div>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label stacked>Credit Card Number*</ion-label>
+      <ion-input type="text" formControlName="number"></ion-input>
+      <div class="error" *ngIf="userFG.get('number').hasError('required')">
+        Credit Card Number is Required!
+      </div>
+    </ion-item>
+ -->
+    <!-- <ion-item>
+      <ion-label stacked>Expiry Date (MM/YYYY)*</ion-label>
+      <ion-input type="text" formControlName="expDate"></ion-input>
+      <div class="error" *ngIf="userFG.get('expDate').hasError('required')">
+        Expire Date is Required!
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>CVC*</ion-label>
+      <ion-input type="password" formControlName="cvc"></ion-input>
+      <div class="error" *ngIf="userFG.get('cvc').hasError('required')">
+        CVC is Required!
+      </div>
+    </ion-item> -->
+    <button ion-button full color="primary" [disabled]="!userFG.valid" (click)="makePayment()">Request Designer</button>
+  </ion-list>
+</ion-content>

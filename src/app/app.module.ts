@@ -18,7 +18,10 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { ItemListPageModule } from '../pages/item-list/item-list.module';
 import { AuthService } from '../providers/users/userAuth';
- 
+import { AboutPageModule } from '../pages/about/about.module';
+import { ContactUsPageModule } from '../pages/contact-us/contact-us.module';
+import { SplistPageModule } from '../pages/splist/splist.module'; 
+import { CartPageModule } from '../pages/cart/cart.module';
  
 @NgModule({
   declarations: [
@@ -31,6 +34,10 @@ import { AuthService } from '../providers/users/userAuth';
     LoginPageModule,
     ProfilePageModule,
     ItemListPageModule,
+    ContactUsPageModule,
+    CartPageModule,
+    SplistPageModule,
+    AboutPageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -46,7 +53,7 @@ import { AuthService } from '../providers/users/userAuth';
     SplashScreen,
     FirebaseProvider,
     AuthService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

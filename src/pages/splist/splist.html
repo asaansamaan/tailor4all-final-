@@ -1,0 +1,58 @@
+<!--
+  Generated template for the SplistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Our Tailor's</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card class="tailor-card" *ngFor="let tailor of validTailors; let i = index">
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="tailor.photoURL || 'assets/imgs/noDp.png'">
+          </ion-avatar>
+          <h2>{{tailor?.displayName || tailor?.firstName}}</h2>
+          <p>Member Since:{{tailor?.memberSince | date: 'mediumDate'}}</p>
+        </ion-item>
+        <ion-slides autoplay="3000" class="tailor-gallery" *ngIf="tailor?.gallery && tailor?.gallery.length > 0">
+
+            <ion-slide class="slide" *ngFor="let image of tailor.gallery">
+              <h2>{{image?.caption}}</h2>
+              <img [src]="image?.imageUrl" alt="">
+            </ion-slide>
+          
+          </ion-slides>      
+        <ion-card-content class="about">
+          <p>{{tailor?.about}}</p>
+        </ion-card-content>
+      
+        <ion-row class="align-center">
+            <button ion-button icon-left outline small (click)="hire()">
+              <ion-icon name="thumbs-up"></ion-icon>
+              <div>Hire Him</div>
+            </button>
+            <button ion-button icon-left outline small (click)="showDetails('phone', i)">
+              <ion-icon name="phone"></ion-icon>
+              <div *ngIf="!showPhone[i]">Show Phone</div>
+              <a href="tel:{{tailor?.phoneNumber}}" *ngIf="showPhone[i]">{{tailor?.phoneNumber}}</a>
+            </button>
+            <button class="address-btn" ion-button icon-left outline small (click)="showDetails('address', i)">
+              <ion-icon name="phone"></ion-icon>
+              <div *ngIf="!showAddress[i]">Show Address</div>
+              <a *ngIf="showAddress[i]">{{tailor?.address}}</a>
+            </button>
+        </ion-row>
+      
+      </ion-card>
+</ion-content>

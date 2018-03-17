@@ -22,6 +22,9 @@ export class AuthService {
         }
       });
   }
+  public get uid () {
+    return this.afAuth.auth.currentUser.uid ;
+  }
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider()
     return this.oAuthLogin(provider);
@@ -38,12 +41,41 @@ export class AuthService {
   public updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    console.log('user in service', user);
     const data: User = user;
     return userRef.set(data);
+  }
+  public updateUserDp(id, photoUrl) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${id}`);
+    return userRef.set({
+      photoURL: photoUrl,
+    });
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
         // this.navCtrl.setRoot('HomePage');
+    });
+  }
+  public getUsers(type,limit, orderBy) {
+    const collection = this.afs.collection('users', ref => 
+      ref.limit(limit)
+    );
+    return collection.snapshotChanges().map(changes => {
+      return changes.map(a=>{
+        return a.payload.doc.data() as User;
+      })
+    });
+  }
+  public getUsersByField(type,limit, field) {
+    const collection = this.afs.collection('users', ref => 
+      ref
+      .limit(limit)
+      .where('userUid', '==', field)
+    );
+    return collection.snapshotChanges().map(changes => {
+      return changes.map(a=>{
+        return a.payload.doc.data() as User;
+      })
     });
   }
 }

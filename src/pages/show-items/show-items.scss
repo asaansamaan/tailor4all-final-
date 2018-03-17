@@ -1,3 +1,33 @@
 page-show-items {
-
+  .scroll-content {
+    @media screen and (min-width: 600px) {
+      margin-top: 56px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .item-card {
+      @media screen and (min-width: 600px) {
+        max-width: 25rem;
+      }
+      .item-pic {
+        background-size: contain;
+        position: relative;
+        .price {
+          position: absolute;
+          bottom: 0px;
+          right: 0px;
+          background: white;
+          padding: 1rem;
+          border: solid #fee85e;
+          font-weight: 600;
+        }
+      }
+      .description {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
 }

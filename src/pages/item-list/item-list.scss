@@ -1,6 +1,24 @@
 page-item-list {
-  
-.container {
+  .scroll-content {
+    @media screen and (min-width: 600px) {
+      margin-top: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      .container {
+        position: relative;
+        max-height: 400px !important;
+        min-height: 200px !important;
+        max-width: 400px !important;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 10px !important;
+      }
+    }
+  }
+  .container {
     position: relative;
     max-height: 200px;
     min-height: 200px;
@@ -14,13 +32,11 @@ page-item-list {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.5);
-}
-  
+    background-color: rgba(0, 0, 0, 0.5);
+  }
   .container:hover .overlay {
     height: 100%;
   }
-  
   .text {
     color: white;
     font-size: 24px;

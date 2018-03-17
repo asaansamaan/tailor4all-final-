@@ -19,7 +19,13 @@
 <ion-content>
   <div *ngIf="authService.user | async as user">
     <div class="user-dp">
-      <img [src]="user.photoURL || 'assets/imgs/noDp.png'" alt="">
+      <img [src]="captureDataUrl" *ngIf="captureDataUrl" class="dp" />
+      <img [src]="user.photoURL || 'assets/imgs/noDp.png'" class="dp" *ngIf="!captureDataUrl && !hideCamera" alt="">
+      <button ion-button icon-only (click)="capture()" class="upload-btn" *ngIf="!captureDataUrl && !hideCamera">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+      <button ion-button class="upload-btn" (click)="upload()" *ngIf="captureDataUrl">Upload Photo</button>
+
     </div>
     <ion-list [formGroup]="userFG">
       <ion-item-group>
@@ -52,7 +58,7 @@
           </ion-select>
         </ion-item>
       </ion-item-group>
-      <ion-item-group>
+      <ion-item-group *ngIf="!user?.roles?.provider">
         <ion-item-divider color="light">Body Measurements</ion-item-divider>
         <ion-item>
           <ion-label floating>Shoulders</ion-label>
@@ -63,38 +69,38 @@
         </ion-item>
 
         <ion-item>
-            <ion-label floating>Chest</ion-label>
-            <ion-input type="number" formControlName="chest"></ion-input>
-          </ion-item>
-          <ion-item class="error" *ngIf="userFG.get('chest').touched && userFG.get('chest').hasError('required')">
-            Chest Length is Required!
-          </ion-item>
+          <ion-label floating>Chest</ion-label>
+          <ion-input type="number" formControlName="chest"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="userFG.get('chest').touched && userFG.get('chest').hasError('required')">
+          Chest Length is Required!
+        </ion-item>
 
         <ion-item>
-            <ion-label floating>Collar Size</ion-label>
-            <ion-input type="number" formControlName="collarSize"></ion-input>
-          </ion-item>
-          <ion-item class="error" *ngIf="userFG.get('collarSize').touched && userFG.get('collarSize').hasError('required')">
-              Collar Size is Required!
-          </ion-item>
+          <ion-label floating>Collar Size</ion-label>
+          <ion-input type="number" formControlName="collarSize"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="userFG.get('collarSize').touched && userFG.get('collarSize').hasError('required')">
+          Collar Size is Required!
+        </ion-item>
 
         <ion-item>
-            <ion-label floating>Sleeves Size</ion-label>
-            <ion-input type="number" formControlName="sleeves"></ion-input>
-          </ion-item>
-          <ion-item class="error" *ngIf="userFG.get('sleeves').touched && userFG.get('sleeves').hasError('required')">
-              Sleeves is Required!
-          </ion-item>
+          <ion-label floating>Sleeves Size</ion-label>
+          <ion-input type="number" formControlName="sleevesSize"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="userFG.get('sleevesSize').touched && userFG.get('sleevesSize').hasError('required')">
+          Sleeves is Required!
+        </ion-item>
 
 
         <ion-item>
-            <ion-label floating>Shirt Size</ion-label>
-            <ion-select formControlName="shirtSize">
-                <ion-option value="lng">Long</ion-option>
-                <ion-option value="md">Medium</ion-option>
-                <ion-option value="sm">Small</ion-option>
-              </ion-select>
-          </ion-item>
+          <ion-label floating>Shirt Size</ion-label>
+          <ion-select formControlName="shirtSize">
+            <ion-option value="lng">Long</ion-option>
+            <ion-option value="md">Medium</ion-option>
+            <ion-option value="sm">Small</ion-option>
+          </ion-select>
+        </ion-item>
       </ion-item-group>
       <button ion-button (click)="updateProfile(user)">Update ME :)</button>
     </ion-list>

@@ -3,5 +3,8 @@ export interface Item {
     title?: string;
     description?: string;
     images: Array<string>;
+    code?: string;
+    for?: string;
+    userUid?: string;
   }
   
