@@ -1,10 +1,15 @@
 page-contact-us {
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     .scroll-content {
         @media screen and (min-width: 600px) {
           margin-top: 56px;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          align-items: flex-start;
+          justify-content: flex-start;
         }
         .layout-column {
           max-width: 35rem;
@@ -15,4 +20,17 @@ page-contact-us {
         max-width: 30rem;
         margin: auto;
       }
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        .title {  
+          span {
+            font-size: 3rem;
+          }
+          p{
+            font-size: 1.6rem;
+          }
+        }
+      }
+  }
 }

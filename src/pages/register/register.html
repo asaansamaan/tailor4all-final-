@@ -92,7 +92,7 @@
 
       <ion-item>
         <ion-label floating>Mobile</ion-label>
-        <ion-input type="text" formControlName="number"></ion-input>
+        <ion-input type="number" formControlName="number"></ion-input>
       </ion-item>
       <ion-item class="error" *ngIf="customerFG.get('number').touched && customerFG.get('number').hasError('required')">
         Number is Required!

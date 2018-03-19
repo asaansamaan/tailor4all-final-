@@ -16,30 +16,50 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div class="layout-column layout-align-center">
-    <img src="assets/imgs/logo.png" class="logo-home">
-    <ion-list [formGroup]="contactFG">
-      <ion-item>
-        <ion-label floating>Name</ion-label>
-        <ion-input type="text" formControlName="firstName"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Email</ion-label>
-        <ion-input type="text" formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Phone</ion-label>
-        <ion-input type="text" formControlName="phone"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Write your Message</ion-label>
-        <ion-input type="text" formControlName="message"></ion-input>
-      </ion-item>
-    </ion-list>
-    <button ion-button icon-left outline (click)="hire()">
-      <ion-icon name="thumbs-up"></ion-icon>
-      <div>Contact Us</div>
-    </button>
+<ion-content padding class="page-container">
+  <img src="assets/imgs/logo.png" class="logo-home">
+  <div class="row">
+    <div class="layout-column layout-align-center">
+      <ion-list [formGroup]="contactFG">
+        <ion-item>
+          <ion-label floating>Name</ion-label>
+          <ion-input type="text" formControlName="firstName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="text" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Phone</ion-label>
+          <ion-input type="number" formControlName="phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Write your Message</ion-label>
+          <ion-input type="text" formControlName="message"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button icon-left outline (click)="hire()">
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>Contact Us</div>
+      </button>
+    </div>
+    <ion-card class="contact-info">
+      <div class="title">
+        <ion-icon name="marker"></ion-icon>
+        <span>ADDRESS</span>
+        <p>A49 block 2, Gulshan-e-Iqbal, Karachi</p>
+      </div>
+      <div class="title">
+        <ion-icon name="mail"></ion-icon>
+        <span>EMAIl</span>
+        <p>fariyaidrees95@gmail.com</p>
+        <p>khizra.rizvi714@gmail.com</p>
+      </div>
+      <div class="title">
+        <ion-icon name="phone"></ion-icon>
+        <span>PHONE</span>
+        <p>0900-78601</p>
+      </div>
+    </ion-card>
   </div>
 </ion-content>

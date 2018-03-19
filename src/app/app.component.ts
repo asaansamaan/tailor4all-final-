@@ -35,8 +35,8 @@ export class MyApp {
       this.checkUserStatus().subscribe(user => {
         if (!!user) {
           this.pages = [
-            { title: 'Home', component: ItemListPage },
             { title: 'Profile', component: ProfilePage },
+            { title: 'Shop', component: ItemListPage },
             { title: 'Cart', component: CartPage },        
             { title: 'Our Tailors', component: SplistPage },        
             { title: 'About Us', component: AboutPage },
@@ -44,7 +44,7 @@ export class MyApp {
           ];
         } else {
           this.pages = [
-            { title: 'Home', component: ItemListPage },
+            { title: 'Shop', component: ItemListPage },
             { title: 'Login', component: LoginPage },
             { title: 'Our Tailors', component: SplistPage },        
             { title: 'About Us', component: AboutPage },
