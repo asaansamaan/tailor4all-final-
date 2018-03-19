@@ -25,7 +25,7 @@
           <ion-icon name="cart"></ion-icon>
         </button>
         <button ion-fab (click)="removeFromCart(item, i)" *ngIf="removed[i]">
-          <ion-icon name="removefire"></ion-icon>
+          <ion-icon name="remove"></ion-icon>
         </button>
       </ion-fab>
       <div class="price">{{item?.price}} /=</div>
@@ -36,6 +36,7 @@
       </ion-card-title>
       <div class="description">
         <p>{{item?.description}}</p>
+        <button ion-button outline (click)="goToPaymentPage(item)">BuyNow</button>
       </div>
         </ion-card-content>
   </ion-card>
