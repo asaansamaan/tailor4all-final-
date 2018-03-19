@@ -18,7 +18,7 @@
 
 <ion-content padding class="page-container">
   <img src="assets/imgs/logo.png" class="logo-home">
-  <div class="row">
+  <div class="row layout-align-space-between">
     <div class="layout-column layout-align-center">
       <ion-list [formGroup]="contactFG">
         <ion-item>
@@ -45,19 +45,27 @@
     </div>
     <ion-card class="contact-info">
       <div class="title">
-        <ion-icon name="marker"></ion-icon>
-        <span>ADDRESS</span>
+        <div>
+            <ion-icon name="pin"></ion-icon>
+          ADDRESS
+
+        </div>
         <p>A49 block 2, Gulshan-e-Iqbal, Karachi</p>
       </div>
       <div class="title">
-        <ion-icon name="mail"></ion-icon>
-        <span>EMAIl</span>
+        <div>
+          <ion-icon name="mail"></ion-icon>
+          EMAIl
+
+        </div>
         <p>fariyaidrees95@gmail.com</p>
         <p>khizra.rizvi714@gmail.com</p>
       </div>
       <div class="title">
-        <ion-icon name="phone"></ion-icon>
-        <span>PHONE</span>
+        <div>
+          <ion-icon name="call"></ion-icon>
+          PHONE
+        </div>
         <p>0900-78601</p>
       </div>
     </ion-card>

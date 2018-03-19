@@ -39,13 +39,16 @@ page-splist {
     }
     .about {
       max-height: 12rem;
-      overflow: hidden;
+      overflow: scroll;
     }
     .align-center {
       justify-content: center;
       .button-outline-md,
       .button-outline-ios {
         color: #4b4a43;
+        a {
+          color: #4b4a43;
+        }
       }
       .address-btn {
         width: 100%;
