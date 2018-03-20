@@ -1,5 +1,5 @@
 <!--
-  Generated template for the ShowItemsPage page.
+  Generated template for the OrderListPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -10,24 +10,22 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{category}}'s Collection</ion-title>
+    <ion-title>My Orders</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card class="item-card" *ngFor="let item of items | async; let i = index">
+  <ion-card class="item-card" *ngFor="let item of orders | async; let i = index">
     <div class="item-pic">
       <img src="{{item?.images[0]}}" />
-      <ion-fab right top>
-        <button ion-fab (click)="addToCart(item, i)" *ngIf="!removed[i]">
+        <button ion-button color="primary" (click)="acceptOrder(item, i)">
           <ion-icon name="cart"></ion-icon>
         </button>
-        <button ion-fab (click)="removeFromCart(item, i)" *ngIf="removed[i]">
+        <button ion-button color="warn" (click)="rejectOrder(item, i)">
           <ion-icon name="remove"></ion-icon>
         </button>
-      </ion-fab>
       <div class="price">{{item?.price}} /=</div>
     </div>
     <ion-card-content>

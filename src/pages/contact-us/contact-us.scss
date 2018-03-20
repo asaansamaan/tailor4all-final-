@@ -28,7 +28,9 @@ page-contact-us {
       .contact-info {
         display: flex;
         flex-direction: column;
-        flex-basis: 45%;
+        @media screen and (min-width: 720px){
+          flex-basis: 45%;          
+        }
         .title {  
           margin: 2rem 0px;
           padding-left: 1rem;

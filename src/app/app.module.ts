@@ -22,6 +22,9 @@ import { AboutPageModule } from '../pages/about/about.module';
 import { ContactUsPageModule } from '../pages/contact-us/contact-us.module';
 import { SplistPageModule } from '../pages/splist/splist.module'; 
 import { CartPageModule } from '../pages/cart/cart.module';
+import { OrderListPageModule } from '../pages/order-list/order-list.module';
+import { OrderService } from '../providers/orders/orders';
+import { CartService } from '../providers/cart/cart';
  
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { CartPageModule } from '../pages/cart/cart.module';
     ContactUsPageModule,
     CartPageModule,
     SplistPageModule,
+    OrderListPageModule,
     AboutPageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -53,6 +57,8 @@ import { CartPageModule } from '../pages/cart/cart.module';
     SplashScreen,
     FirebaseProvider,
     AuthService,
+    OrderService,
+    CartService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

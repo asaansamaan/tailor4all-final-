@@ -58,7 +58,6 @@ export class ShowItemsPage {
   }
   addToCart(item: Item, index) {
     this.removed[index] = true;
-    console.log(this.authService.uid);
     this.cartItems.push(item);
     this.cartService.addCart(this.authService.uid, this.cartItems);
   }

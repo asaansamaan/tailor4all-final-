@@ -5,7 +5,7 @@ import { AuthService } from '../../providers/users/userAuth';
 import { ItemService } from '../../providers/items/itemService';
 import { CartService } from '../../providers/cart/cart';
 import { Cart } from '../../models/cart';
-
+import { User } from '../../models/user';
 /**
  * Generated class for the CheckOutPage page.
  *
@@ -47,30 +47,46 @@ export class CheckOutPage {
     console.log('payment done');
     loading.present();
     this.cartService.getCart(this.authService.uid)
-    .map((cart:Cart[]) => {
+    .subscribe((cart:Cart[]) => {
       const uids = cart.map(obj => obj.items).map(item => item.map(o => o.userUid));
       console.log(uids);
-      uids[0].forEach(id => {
-        return this.authService.getUsersByField('roles.provider', 100 , id)
-        .subscribe(user => console.log(user))
-      });
-    }).subscribe(user => {
-      loading.dismissAll();
-      console.log(user)
-      const alert = this.alertService.create({
-        title: 'Congratulations! Your Request has been Processed',
-        buttons:[{
-          text: 'OK',
-        },
-      {
-        text: 'More Shopping!',
-        handler:() => {
-          alert.dismiss();
-          this.navCtrl.setRoot('HomePage');
-        }
-      }]
-      });
-    });
+      if(uids && uids.length > 0) {
+        uids[0].forEach(id => {
+          return this.authService.getUsersByField('roles.provider', 100 , id)
+          .subscribe((users: User[]) => {
+            console.log(users);
+            users.forEach(user => {
+              let providerItems = cart.map(obj => obj.items).map(item => item.find(o => o.userUid === user.uid));
+              if(providerItems && providerItems.length > 0) {
+                this.cartService.placeOrderByCart(providerItems[0], user.uid)
+                .subscribe(res => {
+                  console.log(res);
+                  loading.dismissAll();
+                  this.cartService.deleteCart(this.authService.uid);
+                  this.userFG.reset();
+                  this.userFG.pristine;
+                  this.userFG.untouched;
+                  const alert = this.alertService.create({
+                    title: 'Congratulations! Your Request has been Processed',
+                    buttons:[{
+                      text: 'OK',
+                    },
+                  {
+                    text: 'More Shopping!',
+                    handler:() => {
+                      alert.dismiss();
+                      this.navCtrl.setRoot('HomePage');
+                    }
+                  }]
+                  });
+                  alert.present();
+                });
+              }
+            })
+          });
+        });
+      }
+    })
 
   }
   ionViewDidLoad() {

@@ -28,12 +28,16 @@ export class CartPage {
       return this.cartService.getCart(user.uid || this.authService.uid)
     })
     .subscribe((items: Cart[]) => {
-      this.cartItems = items.map((obj:Cart) => obj.items)[0];
-      console.log(this.cartItems);
+      if(items && items.length > 0) {
+        const cart = items.map((obj:Cart) => obj.items)[0]
+        this.cartItems = Object.assign(cart);
+        console.log(this.cartItems);
+      }
     });
   }
   removeFromCart(item: Item, index) {
     this.cartItems.splice(index, 1);
+    console.log(this.cartItems);
     this.cartService.updateCart(this.authService.uid, this.cartItems);
   }
   proceedToCheckOut() {

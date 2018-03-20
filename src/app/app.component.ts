@@ -14,6 +14,8 @@ import { AboutPage } from '../pages/about/about';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { SplistPage } from '../pages/splist/splist';
 import { CartPage } from '../pages/cart/cart';
+import { User } from '../models/user';
+import { OrderListPage } from '../pages/order-list/order-list';
  
 @Component({
   templateUrl: 'app.html'
@@ -32,11 +34,21 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.checkUserStatus().subscribe(user => {
+      this.checkUserStatus().subscribe((user:User) => {
         if (!!user) {
+          if(user.roles.provider) {
+            this.pages = [
+              { title: 'Profile', component: ProfilePage },
+              { title: 'Shop', component: ItemListPage },
+              { title: 'Orders', component: OrderListPage },
+              { title: 'Cart', component: CartPage },        
+              // { title: 'Our Tailors', component: SplistPage },        
+              { title: 'About Us', component: AboutPage },
+              { title: 'Contact Us', component: ContactUsPage },        
+            ];
+            return;
+          }
           this.pages = [
-            { title: 'Profile', component: ProfilePage },
-            { title: 'Shop', component: ItemListPage },
             { title: 'Cart', component: CartPage },        
             { title: 'Our Tailors', component: SplistPage },        
             { title: 'About Us', component: AboutPage },

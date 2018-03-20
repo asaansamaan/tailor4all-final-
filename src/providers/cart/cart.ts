@@ -6,13 +6,19 @@ import { Cart } from '../../models/cart';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Card } from 'ionic-angular/components/card/card';
 import { Loading, LoadingController } from 'ionic-angular';
+import { Subscriber } from 'rxjs/Subscriber';
+import { AuthService } from '../users/userAuth';
+import { User } from '../../models/user';
+import { OrderService } from '../orders/orders';
+import { Tabs } from 'ionic-angular/components/tabs/tabs';
+import { TABS } from 'ionic-angular/navigation/nav-util';
 
 @Injectable()
 export class CartService {
   cartCollection: AngularFirestoreCollection<Cart>;
   cartDoc: AngularFirestoreDocument<Cart>;
 
-  constructor(public afs: AngularFirestore, private auth: AngularFireAuth, private loading: LoadingController ) {
+  constructor(public afs: AngularFirestore, private auth: AngularFireAuth, private loading: LoadingController, private userAuth: AuthService, private orderService: OrderService ) {
     this.cartCollection = this.afs.collection('user-cart', ref => ref);
     
   }
@@ -28,37 +34,45 @@ export class CartService {
       })
     })
   }
+  getCartNoChange(userUid) {
+    return this.afs.collection('user-cart', ref => 
+    ref.where('userUid', '==', userUid )
+    .limit(1)).ref.get();
+  }
   addCart(userUid, items: Item[]) {
     const cart = {
-      userUid: this.auth.auth.currentUser.uid,
+      userUid: userUid || this.userAuth.uid,
       items,
     }
-    this.getCart(userUid)
-    .filter((cart:Cart[]) => cart && cart.length === 0)
-    .subscribe(()=>{
-      this.cartCollection.add(cart)
-      .then((value) => {
-        console.log(value);
-        return;
-      }).catch((err) => {
-        window.alert('You Dont have permission to Add Item');
-        console.log(err);
-        return;
-      });
+    this.getCartNoChange(userUid)
+    .then((c) => {
+      console.log(c);
+      if(c && !c.empty) {
+        this.updateCart(userUid, items);
+      }else {
+        this.cartCollection.add(cart)
+        .then((value) => {
+          console.log('add hoi ha cart');
+          return;
+        }).catch((err) => {
+          window.alert('You Dont have permission to Add Item');
+          console.log(err);
+          return;
+        });
+      }
     });
-    this.updateCart(userUid, items);
   }
 
   deleteCart(userUid: string) {
-    this.cartDoc = this.afs.doc(`user-cart/${userUid}`);
-    this.cartDoc.delete();
+    const ref: AngularFirestoreDocument<any> = this.afs.doc(`user-cart/${userUid}`);
+    return ref.delete().then(() => {
+      console.log('deleted');
+    });
   } 
   updateCart(userUid: string, items) {
     console.log(userUid, items);
     const loading = this.loading.create({
-      content: 'Adding To Cart',
-      dismissOnPageChange: true,
-      enableBackdropDismiss: true,
+      content: 'Updating Cart',
     });
     loading.present();
     const ref: AngularFirestoreDocument<any> = this.afs.doc(`user-cart/${userUid}`);
@@ -70,5 +84,12 @@ export class CartService {
       console.log('updated')
     });
     // this.cartDoc.update({userUid, items});
+  }
+  placeOrderByCart(item, providerId): Observable<any> {
+    return Observable.create((obs:Subscriber<any>)=> {
+      console.log('item aya', item);
+      obs.next(this.orderService.putOrderEntryToProvider(item));
+      obs.complete();
+    }); 
   }
 }

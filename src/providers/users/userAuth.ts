@@ -70,7 +70,7 @@ export class AuthService {
     const collection = this.afs.collection('users', ref => 
       ref
       .limit(limit)
-      .where('userUid', '==', field)
+      .where('uid', '==', field)
     );
     return collection.snapshotChanges().map(changes => {
       return changes.map(a=>{
